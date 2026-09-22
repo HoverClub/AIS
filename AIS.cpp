@@ -253,8 +253,12 @@ AIS::AIS(const char *AISbitstream, unsigned int fillBits)
 	while (*tmp != '\0') {
 		msg[i] = *tmp;
 		i++;
+		if (i == msg_max) {
+			return;
+		}
 		tmp++;
 	}
+
 	msg[i] = *tmp; // Terminate msg
 
 	// Time to decode the AIS data
@@ -381,7 +385,7 @@ bool AIS::getdata(unsigned int begin, unsigned int cnt, uint8_t *data, bool isSi
 
 bool AIS::getParamStart(enum AIS::Nmea0183AisParams param, unsigned& start)
 {
-    if(msgType==AIS_MSG_MAX)return false;
+	if(msgType==AIS_MSG_MAX) return false;
 	const struct AisParamPosPair* pparam = AisMsgParams[msgType];
 
 	while (pparam->param != AIS_PARAM_MAX) {

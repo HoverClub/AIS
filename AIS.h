@@ -51,7 +51,7 @@ public:
 
 public:
 	AIS(const char *AISbitstream, unsigned int fillBits = 0);
-	static const int msg_max = 60;
+	static const int msg_max = 72;
 	bool getdata(unsigned int begin, unsigned int cnt, uint8_t *data, bool isigned = false);
 
 	// Fixed position parameters
@@ -233,9 +233,10 @@ private:
 	static const uint8_t vendorid_strlen = 3; // a 6 bits
 
 	uint8_t msg[msg_max];
-	unsigned int msgLen;
-	Nmea0183AisMessages msgType;
-	unsigned int msgNumeric;
+	unsigned int msgLen{0};
+	Nmea0183AisMessages msgType{AIS_MSG_MAX};
+	unsigned int msgNumeric{0};
+
 	//TODO: Allocates strings based on msgType
 	char shipname[shipname_strlen + 1];
 	char atonname[atonname_strlen + 1];

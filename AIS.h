@@ -232,7 +232,8 @@ private:
 	static const uint8_t callsign_strlen = 7; // a 6 bits
 	static const uint8_t vendorid_strlen = 3; // a 6 bits
 
-	uint8_t msg[msg_max];
+	static const uint8_t max_msg_len = 424 / 8; // type5 msg is longest supported @ 424bits
+  	uint8_t msg[max_msg_len]; // large enough to store all msg bits as 8b bytes
 	unsigned int msgLen{0};
 	Nmea0183AisMessages msgType{AIS_MSG_MAX};
 	unsigned int msgNumeric{0};
